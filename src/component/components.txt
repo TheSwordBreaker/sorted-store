@@ -1,0 +1,11 @@
+components str : 
+# screen 1 {
+- TopHeader  : icon , title , profile 
+- text 
+- search bar : search icon , text 
+- banner : 
+- category nav  : nav items 
+- books caurosal : books card 
+                        - card ( book img , name , price ,  add btn )
+- bottom nav  : nav items
+}
