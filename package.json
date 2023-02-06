@@ -11,10 +11,13 @@
   },
   "pre-commit": "run lint",
   "dependencies": {
+    "@headlessui/react": "^1.7.9",
+    "@heroicons/react": "^2.0.14",
     "@splidejs/react-splide": "^0.7.12",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react18-input-otp": "^1.1.2",
     "zod": "^3.20.2"
   },
   "devDependencies": {

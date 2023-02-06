@@ -21,7 +21,7 @@ const BooksCarousel = () => {
             pagination: false,
             gap: "2rem",
             padding: "0",
-            perPage: 1,
+            perPage: 3,
             focus: "center",
             padding: "5rem",
             fixedWidth: "100%",
@@ -56,38 +56,40 @@ const BooksCarousel = () => {
             </SplideSlide>
           </SplideTrack>
         </Splide>
-        {/* <div className="splide">
-          <div className="splide__slider">
-            <div className="splide__track">
-              <ul className="splide__list">
-                <li className="splide__slide">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt=""
-                  />
-                </li>
-                <li className="splide__slide">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt=""
-                  />
-                </li>
-                <li className="splide__slide">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt=""
-                  />
-                </li>
-                <li className="splide__slide">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt=""
-                  />
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
+
+        {/* style  */}
+        <style global jsx>{`
+          .splide {
+            padding: 0 !important;
+            height: 19rem !important;
+          }
+          .splide__slide {
+            height: 19rem !important;
+          }
+
+          .splide__slide img {
+          }
+
+          .splide__slide.is-active.card {
+            opacity: 1;
+          }
+          .splide__slide.is-active.is-visible {
+            /* border: 1px solid red; */
+            height: 19rem;
+            width: 10.5rem !important;
+            margin-top: 0 !important;
+            height: 19rem !important;
+          }
+          .splide__slide.is-active.is-visible img {
+            height: 11rem !important;
+            border: 1px solid #d6d6d6;
+            /* margin-top: -1rem; */
+          }
+          .splide__slide.is-next,
+          .splide__slide.is-prev {
+            height: 10rem !important;
+          }
+        `}</style>
       </div>
     </>
   );

@@ -1,11 +1,9 @@
-import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
-import "@splidejs/react-splide/css/skyblue";
-import "@splidejs/react-splide/css/sea-green";
-import "@splidejs/react-splide/css/core";
 import { book1 } from "../../public/Images/images.js";
 import Image from "next/image";
 
+// type myprop{
+//   title:string;
+// }
 const ProductList = (props: any) => {
   return (
     <>

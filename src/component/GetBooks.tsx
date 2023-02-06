@@ -10,7 +10,9 @@ const GetBooks = () => {
         </div>
         <div className="mx-2 items-center justify-center py-5">
           <p className="text-getBooksText">Get your books</p>
-          <p className="text-getBooksText2">linked email id's and whatsapp</p>
+          <p className="text-getBooksText2">
+            linked email id&lsquo;s and whatsapp
+          </p>
         </div>
         <div className=" my-auto items-center justify-center object-fill py-5 px-4 ">
           <Image src={arrow} alt="getBooks" />
