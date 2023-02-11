@@ -4,19 +4,19 @@ import Image from "next/image";
 const ProductCardItem = (props: any) => {
   return (
     <>
-      <div className="bookCard  bookCard2 my-10 flex h-auto w-auto flex-col items-center justify-center px-2 text-mainBgColor">
-        <div className="cardImg relative mt-[-1rem]">
+      <div className="bookCard   my-10 flex h-auto w-auto flex-col items-center justify-center py-5 px-2 text-mainBgColor">
+        <div className="relative mt-[-1rem]">
           <div className=" absolute top-1 left-1 h-full w-full bg-bookBg"></div>
           <Image
             width={600}
             height={500}
-            className=" relative  h-[7.5rem] w-[5.8rem]"
+            className=" relative   h-[11.25rem] w-[8.34rem]"
             alt=""
             src={`${props.image}`}
           />
         </div>
 
-        <div className="bookDetails mt-2  w-max">
+        <div className="bookDetails mt-2  w-max mx-4">
           <p className="bookTitle secondSliderCT font-Bitter font-bold">
             {props.title}
           </p>

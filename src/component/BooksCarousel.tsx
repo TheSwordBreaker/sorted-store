@@ -64,7 +64,7 @@ const BooksCarousel = () => {
             height: 19rem !important;
           }
           .splide__slide {
-            height: 19rem !important;
+             max-width: 11rem;
           }
 
           .splide__slide img {
