@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mainBgColor: "#0F0F0F",
+        mainBgColor: "#000000",
         fontColor: "#ffffff",
         searchBarBg: "#121212",
         borderColor: "#ffffff4d",
@@ -18,9 +18,14 @@ module.exports = {
         tN: "#B2D6EE",
         tK: "#B7743F",
         tC: "#D3EEBB",
-        accorBg: "#0d0d0d",
+        accorBg: "#0D0D0D",
         btnPurple: "#AA3FFF",
         placeHolderColor: "#282828",
+        addSubBtnBorder: "#8a8a8a",
+        totalPriceText: "#d9d9d9",
+        amountGreen: "#06C270",
+        secondaryTextCol: "#707070",
+        cauroselBg: "#191717",
       },
       fontSize: {
         secondSliderCT: "0.688rem",

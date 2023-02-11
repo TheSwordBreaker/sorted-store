@@ -1,7 +1,8 @@
+import type { NextPage } from "next";
 import Head from "next/head";
 import Otp from "../component/SignUp/Otp";
 
-const SignUpOtp = () => {
+const SignUpOtp: NextPage = () => {
   return (
     <>
       <Head>

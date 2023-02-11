@@ -28,7 +28,7 @@ const BooksCarousel = () => {
             speed: 500,
           }}
         >
-          <SplideTrack className="">
+          <SplideTrack>
             <SplideSlide>
               <div className="bookCard my-2 flex w-full flex-col items-center justify-center text-mainBgColor">
                 <div className="cardImg relative mt-[-3rem]">

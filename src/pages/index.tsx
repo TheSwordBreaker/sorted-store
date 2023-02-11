@@ -29,8 +29,11 @@ const Home: NextPage = () => {
         <BooksCarousel></BooksCarousel>
         <BottomMenu></BottomMenu>
         <ProductList title="IT Engineering "></ProductList>
-        <GetBooks></GetBooks>
-        <ProductList title="Computer Engineering "></ProductList>
+        {/* <GetBooks></GetBooks> */}
+        <ProductList
+          className="pb-20"
+          title="Computer Engineering "
+        ></ProductList>
       </main>
     </>
   );

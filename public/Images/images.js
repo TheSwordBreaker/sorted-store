@@ -16,6 +16,8 @@ import ChevronOpen from "./ChevronOpen.svg";
 import bookInfo from "./bookInfo.svg";
 import buyNow from "./buyNow.svg";
 import btnArrow from "./btnArrow.svg";
+import rightArrow from "./rightArrow.svg";
+import greenTick from "./greenTick.svg";
 export {
   logo,
   profile,
@@ -35,4 +37,6 @@ export {
   bookInfo,
   buyNow,
   btnArrow,
+  rightArrow,
+  greenTick,
 };

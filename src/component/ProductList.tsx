@@ -1,5 +1,6 @@
 import { book1 } from "../../public/Images/images.js";
 import Image from "next/image";
+import ProductCardItem from "./ProductCardItem";
 
 // type myprop{
 //   title:string;
@@ -14,100 +15,32 @@ const ProductList = (props: any) => {
           </h1>
         </div>
 
-        <div className=" bg-sliderBg px-4">
+        <div className=" bg-cauroselBg px-4">
           <div className="cardsContainer scrollbar-hide  flex  gap-7 overflow-x-scroll">
-            <div className="bookCard  bookCard2 my-10 flex h-auto w-auto flex-col items-center justify-center px-2 text-mainBgColor">
-              <div className="cardImg relative mt-[-1rem]">
-                <div className=" absolute top-1 left-1 h-full w-full bg-bookBg"></div>
-                <Image
-                  className=" relative  h-[7.5rem] w-[5.8rem]"
-                  alt=""
-                  src={book1}
-                />
-              </div>
-
-              <div className="bookDetails mt-2  w-max">
-                <p className="bookTitle secondSliderCT font-Bitter font-bold">
-                  Engineering Maths
-                </p>
-                <p className="sem">Sem I</p>
-                <div className="priceAndAdd flex items-center justify-between">
-                  <span className="price secondSliderCT font-bold">₹ 350</span>
-                  <button className="addBtn flex items-center rounded  bg-addBtn p-2   text-fontColor">
-                    <p className=" leading-3">+</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="bookCard  bookCard2 my-10 flex h-auto w-auto flex-col items-center justify-center px-2 text-mainBgColor">
-              <div className="cardImg relative mt-[-1rem]">
-                <div className=" absolute top-1 left-1 h-full w-full bg-bookBg"></div>
-                <Image
-                  className=" relative  h-[7.5rem] w-[5.8rem]"
-                  alt=""
-                  src={book1}
-                />
-              </div>
-
-              <div className="bookDetails mt-2  w-max">
-                <p className="bookTitle secondSliderCT font-Bitter font-bold">
-                  Engineering Maths
-                </p>
-                <p className="sem">Sem I</p>
-                <div className="priceAndAdd flex items-center justify-between">
-                  <span className="price secondSliderCT font-bold">₹ 350</span>
-                  <button className="addBtn flex items-center rounded bg-mainBgColor p-2   text-fontColor">
-                    <p className=" leading-3">+</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="bookCard  bookCard2 my-10 flex h-auto w-auto flex-col items-center justify-center px-2 text-mainBgColor">
-              <div className="cardImg relative mt-[-1rem]">
-                <div className=" absolute top-1 left-1 h-full w-full bg-bookBg"></div>
-                <Image
-                  className=" relative  h-[7.5rem] w-[5.8rem]"
-                  alt=""
-                  src={book1}
-                />
-              </div>
-
-              <div className="bookDetails mt-2  w-max">
-                <p className="bookTitle secondSliderCT font-Bitter font-bold">
-                  Engineering Maths
-                </p>
-                <p className="sem">Sem I</p>
-                <div className="priceAndAdd flex items-center justify-between">
-                  <span className="price secondSliderCT font-bold">₹ 350</span>
-                  <button className="addBtn flex items-center rounded bg-mainBgColor p-2   text-fontColor">
-                    <p className=" leading-3">+</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="bookCard  bookCard2 my-10 flex h-auto w-auto flex-col items-center justify-center px-2 text-mainBgColor">
-              <div className="cardImg relative mt-[-1rem]">
-                <div className=" absolute top-1 left-1 h-full w-full bg-bookBg"></div>
-                <Image
-                  className=" relative  h-[7.5rem] w-[5.8rem]"
-                  alt=""
-                  src={book1}
-                />
-              </div>
-
-              <div className="bookDetails mt-2  w-max">
-                <p className="bookTitle secondSliderCT font-Bitter font-bold">
-                  Engineering Maths
-                </p>
-                <p className="sem">Sem I</p>
-                <div className="priceAndAdd flex items-center justify-between">
-                  <span className="price secondSliderCT font-bold">₹ 350</span>
-                  <button className="addBtn flex items-center rounded bg-addBtn p-2   text-fontColor">
-                    <p className=" leading-3">+</p>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ProductCardItem
+              image="/Images/Book1.png"
+              title="Engineering Maths"
+              price="₹ 350"
+              semNum="I"
+            ></ProductCardItem>
+            <ProductCardItem
+              image="/Images/Book1.png"
+              title="Engineering Graphics"
+              price="₹ 450"
+              semNum="II"
+            ></ProductCardItem>
+            <ProductCardItem
+              image="/Images/Book1.png"
+              title="Engineering Chemistry"
+              price="₹ 250"
+              semNum="III"
+            ></ProductCardItem>
+            <ProductCardItem
+              image="/Images/Book1.png"
+              title="Engineering Maths 2"
+              price="₹ 500"
+              semNum="IV"
+            ></ProductCardItem>
           </div>
         </div>
       </div>
