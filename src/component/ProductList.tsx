@@ -20,30 +20,8 @@ const ProductList = (props: any) => {
           <div className="cardsContainer scrollbar-hide  flex  gap-7 overflow-x-scroll">
             <BookCard />
             <BookCard />
-            {/* <ProductCardItem
-              image="/Images/Book1.png"
-              title="Engineering Maths"
-              price="₹ 350"
-              semNum="I"
-            ></ProductCardItem> */}
-            {/* <ProductCardItem
-              image="/Images/Book1.png"
-              title="Engineering Graphics"
-              price="₹ 450"
-              semNum="II"
-            ></ProductCardItem> */}
-            {/* <ProductCardItem
-              image="/Images/Book1.png"
-              title="Engineering Chemistry"
-              price="₹ 250"
-              semNum="III"
-            ></ProductCardItem>
-            <ProductCardItem
-              image="/Images/Book1.png"
-              title="Engineering Maths 2"
-              price="₹ 500"
-              semNum="IV"
-            ></ProductCardItem> */}
+            <BookCard />
+            <BookCard />
           </div>
         </div>
       </div>
