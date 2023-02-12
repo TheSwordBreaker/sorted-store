@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { InferGetServerSidePropsType, type NextPage } from "next";
 import Head from "next/head";
 // importing style
 
@@ -12,7 +12,28 @@ import BooksCarousel from "../component/BooksCarousel";
 import BottomMenu from "../component/BottomMenu";
 import ProductList from "../component/ProductList";
 import GetBooks from "../component/GetBooks";
-const Home: NextPage = () => {
+import commerce from "../lib/commerce";
+import type { Product } from "@chec/commerce.js/types/product";
+
+export async function getServerSideProps() {
+  const { data: products } = await commerce.products.list({
+    category_slug: "home",
+  });
+
+  // console.log(products);
+
+  return {
+    props: {
+      products,
+    },
+  };
+}
+
+interface myProps {
+  products: Product[];
+}
+
+const Home: NextPage<myProps> = ({ products }) => {
   return (
     <>
       <Head>
@@ -26,13 +47,14 @@ const Home: NextPage = () => {
         <SearchBox />
         <Banner images={[]} />
         <CategoryNav />
-        <BooksCarousel />
+        <BooksCarousel products={products} />
         <BottomMenu />
-        <ProductList title="IT Engineering "/>
+        <ProductList title="IT Engineering " products={products} />
         {/* <GetBooks></GetBooks> */}
         <ProductList
           className="pb-20"
           title="Computer Engineering "
+          products={products}
         />
       </main>
     </>

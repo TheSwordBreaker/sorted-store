@@ -1,17 +1,19 @@
+import type { Product } from "@chec/commerce.js/types/product";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-// import "@splidejs/react-splide/css";
-// import "@splidejs/react-splide/css/skyblue";
-// import "@splidejs/react-splide/css/sea-green";
-// import "@splidejs/react-splide/css/core";
-
-// or only core styles
+import BookCard from "./Card/BookCard";
 import "@splidejs/react-splide/css/core";
 
-import BookCard from "./Card/BookCard";
+interface myProps {
+  products: Product[];
+}
 
-const BooksCarousel = () => {
+const BooksCarousel = ({ products }: myProps) => {
   const book1 =
     "https://cdn.chec.io/merchants/48536/assets/HaZz6NL5WXl78v53%7CBook1.png";
+
+  console.log(products[0]?.image?.url);
+
+  const image = products[0]?.image?.url || book1;
 
   return (
     <>
@@ -36,7 +38,7 @@ const BooksCarousel = () => {
         >
           <SplideTrack>
             <SplideSlide>
-              <BookCard image={book1} />
+              <BookCard product={products[0]} />
             </SplideSlide>
           </SplideTrack>
         </Splide>
