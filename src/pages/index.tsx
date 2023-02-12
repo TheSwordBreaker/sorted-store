@@ -21,19 +21,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className=" bg-mainBgColor p-4">
-        <TopHeader></TopHeader>
-        <HeaderText></HeaderText>
-        <SearchBox></SearchBox>
-        <Banner></Banner>
-        <CategoryNav></CategoryNav>
-        <BooksCarousel></BooksCarousel>
-        <BottomMenu></BottomMenu>
-        <ProductList title="IT Engineering "></ProductList>
+        <TopHeader />
+        <HeaderText />
+        <SearchBox />
+        <Banner images={[]} />
+        <CategoryNav />
+        <BooksCarousel />
+        <BottomMenu />
+        <ProductList title="IT Engineering "/>
         {/* <GetBooks></GetBooks> */}
         <ProductList
           className="pb-20"
           title="Computer Engineering "
-        ></ProductList>
+        />
       </main>
     </>
   );

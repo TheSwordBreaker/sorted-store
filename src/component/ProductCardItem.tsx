@@ -17,7 +17,7 @@ const ProductCardItem = (props: any) => {
         </div>
 
         <div className="bookDetails mt-2  w-max mx-4">
-          <p className="bookTitle secondSliderCT font-Bitter font-bold">
+          <p className="bookTitle secondSliderCT font-bitter font-bold">
             {props.title}
           </p>
           <p className="sem">sem {props.semNum}</p>

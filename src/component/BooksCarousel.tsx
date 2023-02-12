@@ -41,7 +41,7 @@ const BooksCarousel = () => {
                 </div>
 
                 <div className="bookDetails mt-2">
-                  <p className="bookTitle font-Bitter font-bold">
+                  <p className="bookTitle font-bitter font-bold">
                     Engineering Maths
                   </p>
                   <p className="sem">Sem I</p>

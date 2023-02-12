@@ -9,7 +9,7 @@ module.exports = {
         searchBarBg: "#121212",
         borderColor: "#ffffff4d",
         posterColor: "#636C33",
-        bookCarouselBg: "#1A1818",
+        bookCarouselBg: "#000000",
         sliderBg: "#191717",
         addBgColor: "#2C2C2C",
         addBtn: "#1E1E1E",
@@ -25,7 +25,7 @@ module.exports = {
         totalPriceText: "#d9d9d9",
         amountGreen: "#06C270",
         secondaryTextCol: "#707070",
-        cauroselBg: "#191717",
+        cauroselBg: "#000000",
       },
       fontSize: {
         secondSliderCT: "0.688rem",
@@ -38,7 +38,7 @@ module.exports = {
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
         Lora: ["Lora", "serif"],
-        Bitter: ["Bitter", "serif"],
+        bitter: ["Bitter", "serif"],
       },
     },
   },

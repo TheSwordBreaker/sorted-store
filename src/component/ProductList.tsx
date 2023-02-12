@@ -1,6 +1,7 @@
 import { book1 } from "../../public/Images/images.js";
 import Image from "next/image";
 import ProductCardItem from "./ProductCardItem";
+import BookCard from "./Card/BookCard";
 
 // type myprop{
 //   title:string;
@@ -17,19 +18,21 @@ const ProductList = (props: any) => {
 
         <div className=" bg-cauroselBg px-4">
           <div className="cardsContainer scrollbar-hide  flex  gap-7 overflow-x-scroll">
-            <ProductCardItem
+            <BookCard />
+            <BookCard />
+            {/* <ProductCardItem
               image="/Images/Book1.png"
               title="Engineering Maths"
               price="₹ 350"
               semNum="I"
-            ></ProductCardItem>
-            <ProductCardItem
+            ></ProductCardItem> */}
+            {/* <ProductCardItem
               image="/Images/Book1.png"
               title="Engineering Graphics"
               price="₹ 450"
               semNum="II"
-            ></ProductCardItem>
-            <ProductCardItem
+            ></ProductCardItem> */}
+            {/* <ProductCardItem
               image="/Images/Book1.png"
               title="Engineering Chemistry"
               price="₹ 250"
@@ -40,7 +43,7 @@ const ProductList = (props: any) => {
               title="Engineering Maths 2"
               price="₹ 500"
               semNum="IV"
-            ></ProductCardItem>
+            ></ProductCardItem> */}
           </div>
         </div>
       </div>

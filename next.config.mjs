@@ -8,7 +8,7 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
-   typescript: {
+  typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
@@ -20,6 +20,16 @@ const config = {
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.chec.io',
+        port: '',
+        pathname: '/merchants/48536/**',
+      },
+    ],
   },
 };
 export default config;
