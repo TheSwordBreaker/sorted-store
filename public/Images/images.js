@@ -18,6 +18,10 @@ import buyNow from "./buyNow.svg";
 import btnArrow from "./btnArrow.svg";
 import rightArrow from "./rightArrow.svg";
 import greenTick from "./greenTick.svg";
+import cart from "./cart.svg";
+import explore from "./explore.svg";
+import more from "./more.svg";
+import rewards from "./rewards.svg";
 export {
   logo,
   profile,
@@ -39,4 +43,8 @@ export {
   btnArrow,
   rightArrow,
   greenTick,
+  cart,
+  explore,
+  more,
+  rewards,
 };
