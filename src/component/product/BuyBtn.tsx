@@ -1,9 +1,16 @@
 import Image from "next/image";
 import { buyNow } from "../../../public/Images/images";
 
-const BuyBtn = () => {
+interface Props {
+  onClick: () => void;
+}
+
+const BuyBtn = ({ onClick }: Props) => {
   return (
-    <button className="my-6 mx-auto flex w-full w-[80vw] items-center justify-center gap-7 bg-btnPurple px-4 py-3 text-fontColor">
+    <button
+      onClick={onClick}
+      className="mx-auto my-6 flex  w-full max-w-md items-center justify-center gap-7 bg-btnPurple py-3 px-4 text-fontColor"
+    >
       <p className=" font-bitter text-base font-bold ">Buy Now</p>
       <Image src={buyNow} alt="Buy now btn icon"></Image>
     </button>

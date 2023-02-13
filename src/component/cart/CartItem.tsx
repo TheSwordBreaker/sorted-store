@@ -1,14 +1,17 @@
+import type { LineItem } from "@chec/commerce.js/types/line-item";
+
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 
-// components 
+// components
 
-type myProps={
-  editable:boolean,
-} 
+type myProps = {
+  editable: boolean;
+  item: LineItem;
+};
 
-const CartItem = ({editable}:myProps) => {
-console.log(editable);
+const CartItem = ({ editable, item }: myProps) => {
+  console.log(editable);
   return (
     <>
       <div className="cartItem my-6 flex min-h-min items-start justify-between font-Lora">
@@ -17,7 +20,7 @@ console.log(editable);
             <p className="p-3">TK</p>
           </div>
           <div className="">
-            <p className=" text-base">Engineering Maths</p>
+            <p className=" text-base">{item.name}</p>
             <div className="">
               <Disclosure>
                 {({ open }) => (
@@ -30,7 +33,7 @@ console.log(editable);
                         } ml-2 h-5 w-5  text-fontColor`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="w-full pr-2 pt-4 pb-2 text-justify text-sm text-gray-500">
+                    <Disclosure.Panel className="w-full pt-4 pr-2 pb-2 text-justify text-sm text-gray-500">
                       If you&apos;re unhappy with your purchase for any reason,
                       email us within 90 days and we&apos;ll refund you in full,
                       no questions asked.
@@ -42,19 +45,18 @@ console.log(editable);
           </div>
         </div>
         <div className="priceAndBtns flex flex-col  items-end justify-center gap-1">
-
-          {(editable)?
-          <div
-            className="buttonsAddSub flex h-6 min-h-fit items-center gap-3 border border-addSubBtnBorder py-3 px-2
+          {editable ? (
+            <div
+              className="buttonsAddSub flex h-6 min-h-fit items-center gap-3 border border-addSubBtnBorder py-3 px-2
           "
-          >
-            <button className="add">+</button>
-            <p className="QuantityCounter">1</p>
-            <button className="sub">-</button>
-          </div>
-           :null}
+            >
+              <button className="add">+</button>
+              <p className="QuantityCounter">{item.quantity}</p>
+              <button className="sub">-</button>
+            </div>
+          ) : null}
           <div className="pricebox">
-            <p className="price text-xs">₹ 140</p>
+            <p className="price text-xs">₹ {item.line_total.formatted} </p>
           </div>
         </div>
       </div>

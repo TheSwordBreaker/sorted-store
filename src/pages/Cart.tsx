@@ -10,10 +10,43 @@ import { useState } from "react";
 import { arrow } from "../../public/Images/images.js";
 import Image from "next/image";
 import AddPrDetails from "../component/cart/AddPrDetails";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import commerce from "../lib/commerce";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-const Cart: NextPage = () => {
+// function getServerSideProps() {
+//   return {
+//     props: {},
+//   };
+// }
+
+const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  // Queries
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => commerce.cart.retrieve(),
+  });
+
+  if (isLoading)
+    return (
+      <main className="CartPage min-h-screen  bg-mainBgColor pb-20">
+        Loading...
+      </main>
+    );
+
+  if (error)
+    return (
+      <main className="CartPage min-h-screen  bg-mainBgColor pb-20">
+        {"An error has occurred: " + error}
+      </main>
+    );
+
+  console.log(data);
   return (
     <>
       <Head>
@@ -26,30 +59,42 @@ const Cart: NextPage = () => {
         <div className="p-4">
           <TopHeader></TopHeader>
         </div>
-        <div className="Cart  font-Lora text-fontColor">
-          <h1 className="px-4 pb-3 font-bold">Cart</h1>
-          <div className="cartItems w-full bg-accorBg p-4 px-4">
-            <CartItem editable></CartItem>
-            <CartItem editable></CartItem>
-            <CartItem editable></CartItem>
-            <CartItem editable></CartItem>
-            <button className="add text-slate-400">+ Add</button>
-          </div>
-          {/* <OnclickButton></OnclickButton> */}
-        </div>
-        <ItemTotal></ItemTotal>
-        <AddPrDetails></AddPrDetails>
+        {data ? (
+          <>
+            <div className="Cart  font-Lora text-fontColor">
+              <h1 className="px-4 pb-3 font-bold">Cart</h1>
+              <div className="cartItems w-full bg-accorBg p-4 px-4">
+                {data?.line_items.map((x) => {
+                  return <CartItem item={x} editable key={x.id} />;
+                })}
 
-        <CheckoutBtn
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        ></CheckoutBtn>
+                <button
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                  className="add text-slate-400"
+                >
+                  + Add
+                </button>
+              </div>
+              {/* <OnclickButton></OnclickButton> */}
+            </div>
+            <ItemTotal cart={data}></ItemTotal>
+            <AddPrDetails></AddPrDetails>
 
+            <CheckoutBtn
+              onClick={() => {
+                console.log("hello");
+
+                setIsOpen(!isOpen);
+              }}
+            />
+          </>
+        ) : null}
         {isOpen ?? (
           <div
             id="drawer-bottom-example"
-            className="fixed bottom-0 left-0 right-0 z-40 w-full transform-none overflow-y-auto  border border-solid bg-mainBgColor p-4 px-8 text-fontColor transition-transform"
+            className="fixed right-0 bottom-0 left-0 z-40 w-full transform-none overflow-y-auto  border border-solid bg-mainBgColor p-4 px-8 text-fontColor transition-transform"
             aria-labelledby="drawer-bottom-label"
           >
             <div className="py-4">

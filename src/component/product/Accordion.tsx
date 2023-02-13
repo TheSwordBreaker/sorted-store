@@ -2,15 +2,19 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { icon_Book, bookInfo } from "../../../public/Images/images";
 import Image from "next/image";
+import type { Product } from "@chec/commerce.js/types/product";
 
-export default function Accordion() {
+export interface myProps {
+  product: Product;
+}
+export default function Accordion({ product }: myProps) {
   return (
-    <div className="w-full px-4 pt-12">
-      <div className="mx-auto w-full max-w-md  p-2  text-fontColor">
+    <div className="w-full pt-6">
+      <div className=" w-full max-w-md  p-2  text-fontColor">
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="   flex  w-full  justify-between   bg-addBgColor py-3 px-4 text-left text-sm font-medium ease-in-out focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 ">
+              <Disclosure.Button className="  flex  w-full  justify-between   bg-addBgColor py-3 px-4 text-left text-sm font-medium ease-in-out focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 ">
                 <Image src={bookInfo} alt=""></Image>
                 <span className="my-auto ml-[-8rem] font-Lora text-sm">
                   Book info

@@ -4,6 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        pop: {
+          white400: '#FBFBFB',
+          white150: '#E0E0E0',
+        },
         mainBgColor: "#000000",
         fontColor: "#ffffff",
         searchBarBg: "#121212",
