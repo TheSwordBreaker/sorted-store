@@ -64,7 +64,7 @@ const ProductPage: NextPage<myProps> = ({ product }) => {
         <ProductData product={product} />
         <BuyBtn onClick={buyNow} />
         <BuyAllBtn onClick={buyAllNow} />
-        <Accordion product={product} />
+        <Accordion defaultOpen product={product} />
       </main>
     </>
   );

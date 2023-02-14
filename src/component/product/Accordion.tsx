@@ -6,12 +6,14 @@ import type { Product } from "@chec/commerce.js/types/product";
 
 export interface myProps {
   product: Product;
+  defaultOpen?: boolean;
 }
-export default function Accordion({ product }: myProps) {
+export default function Accordion({ product, defaultOpen }: myProps) {
+  const isOpen = defaultOpen ?? false;
   return (
     <div className="w-full pt-6">
       <div className=" w-full max-w-md  p-2  text-fontColor">
-        <Disclosure>
+        <Disclosure defaultOpen={isOpen}>
           {({ open }) => (
             <>
               <Disclosure.Button className="  flex  w-full  justify-between   bg-addBgColor py-3 px-4 text-left text-sm font-medium ease-in-out focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 ">
@@ -25,7 +27,11 @@ export default function Accordion({ product }: myProps) {
                   } my-auto h-5 w-5 text-fontColor`}
                 />
               </Disclosure.Button>
-              <Disclosure.Panel className=" mt-3 bg-addBgColor px-4 pt-4 pb-2 font-Lora text-sm font-medium">
+              <Disclosure.Panel
+                aria-expanded="true"
+                data-headlessui-state="open"
+                className=" mt-3 bg-addBgColor px-4 pt-4 pb-2 font-Lora text-sm font-medium"
+              >
                 <div className="my-1 flex justify-between">
                   <p>Publication</p>
                   <p>Nirali</p>

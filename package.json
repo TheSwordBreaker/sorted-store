@@ -16,6 +16,7 @@
     "@heroicons/react": "^2.0.14",
     "@splidejs/react-splide": "^0.7.12",
     "@tanstack/react-query": "^4.24.6",
+    "firebase": "^9.17.1",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
     "next": "13.1.6",
