@@ -24,10 +24,10 @@ const config = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'cdn.chec.io',
-        port: '',
-        pathname: '/merchants/48536/**',
+        protocol: "https",
+        hostname: "cdn.chec.io",
+        port: "",
+        pathname: "/merchants/50415/**",
       },
     ],
   },
