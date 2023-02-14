@@ -49,7 +49,11 @@ const Home: NextPage<myProps> = ({ products }) => {
         <CategoryNav />
         <BooksCarousel products={products} />
         <BottomMenu />
-        <ProductList title="IT Engineering " products={products} />
+        <ProductList
+          className="pb-20"
+          title="IT Engineering "
+          products={products}
+        />
         {/* <GetBooks></GetBooks> */}
         <ProductList
           className="pb-20"

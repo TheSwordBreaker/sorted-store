@@ -40,7 +40,7 @@ const BookCard = ({ product }: my_props) => {
         </div>
 
         <div className="mx-4  mt-3.5 mb-3 flex flex-col font-bitter text-addBtn ">
-          <div className="text-sm font-bold sm:text-base md:text-lg">
+          <div className="  h-6 w-36 truncate  text-sm font-bold sm:text-base md:text-lg">
             {" "}
             {product.name}
           </div>
