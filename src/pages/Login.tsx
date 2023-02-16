@@ -13,7 +13,7 @@ const MobileNo = () => {
           <h1>Sign Up</h1>
         </div>
         <div>
-          <p className="py-2 ">Phone No.</p>
+          <p className="py-2 text-pop-white100 ">Phone No.</p>
           <input
             className="w-full bg-transparent placeholder-gray-500 outline-0"
             name="email"
@@ -22,7 +22,7 @@ const MobileNo = () => {
             required
           />
         </div>
-        <p className="py-8 text-consent">
+        <p className="py-8 text-consent text-pop-white100-61">
           By continuing, you agree to our terms of service & privacy policy
           content policy
         </p>

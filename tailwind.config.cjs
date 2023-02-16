@@ -5,8 +5,11 @@ module.exports = {
     extend: {
       colors: {
         pop: {
-          white400: '#FBFBFB',
+
+          white100: "#D2D2D2",
+          "white100-61": "rgba(210, 210, 210, 0.61)",
           white150: '#E0E0E0',
+          white400: '#FBFBFB',
         },
         mainBgColor: "#000000",
         fontColor: "#ffffff",

@@ -15,8 +15,5 @@ const FirebaseCredentials = {
 
 const app = initializeApp(FirebaseCredentials);
 const auth = getAuth(app);
-// if (!Firebase?.apps.length) {
-//  initializeApp(FirebaseCredentials);
-// }
 
 export default auth;
