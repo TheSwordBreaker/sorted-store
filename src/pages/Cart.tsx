@@ -15,11 +15,17 @@ import commerce from "../lib/commerce";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Loader } from "../component/utils/loader";
+import auth from "../lib/firebase";
+
+export async function getStaticProps() {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   // Queries
   const { isLoading, error, data } = useQuery({
@@ -29,16 +35,22 @@ const Cart = () => {
     refetchOnWindowFocus: false,
   });
 
+  // Handlers
+  const onCheckout = () => {
+    console.log(auth.currentUser);
+    if (!auth.currentUser) router.push("/Login");
+    console.log("Checkout click");
+    // 1. get user
+    // if not send to signup page
+    // 2. ask for address
+    // show the add addresss propmt
+
+    // 3. redirect to payment
+  };
+
   if (isLoading) return <Loader />;
+  if (error) return <HandleError />;
 
-  if (error)
-    return (
-      <main className="CartPage min-h-screen  bg-mainBgColor pb-20">
-        {"An error has occurred: " + error}
-      </main>
-    );
-
-  console.log(data);
   return (
     <>
       <Head>
@@ -76,9 +88,7 @@ const Cart = () => {
 
             <CheckoutBtn
               onClick={() => {
-                console.log("hello");
-
-                setIsOpen(!isOpen);
+                onCheckout();
               }}
             />
           </>
@@ -152,4 +162,11 @@ const Cart = () => {
   );
 };
 
+function HandleError(error: any) {
+  return (
+    <main className="CartPage min-h-screen  bg-mainBgColor pb-20">
+      {"An error has occurred: " + error}
+    </main>
+  );
+}
 export default Cart;

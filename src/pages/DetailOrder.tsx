@@ -42,13 +42,13 @@ const DetailOrder: NextPage = () => {
         </div>
         <div className="px-4">
           <div className="mt-8 border border-borderColor bg-accorBg p-4 font-Lora text-fontColor">
+            {/* <CartItem editable={false}></CartItem>
             <CartItem editable={false}></CartItem>
             <CartItem editable={false}></CartItem>
-            <CartItem editable={false}></CartItem>
-            <CartItem editable={false}></CartItem>
+            <CartItem editable={false}></CartItem> */}
           </div>
           <div className="mt-4 border border-borderColor">
-            <ItemTotal></ItemTotal>
+            {/* <ItemTotal></ItemTotal> */}
           </div>
         </div>
       </main>
