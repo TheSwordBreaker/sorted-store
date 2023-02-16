@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import TopHeader from "../component/TopHeader";
+import TopHeader from "../component/utils/TopHeader";
 import { rightArrow } from "../../public/Images/images";
 import Image from "next/image";
 

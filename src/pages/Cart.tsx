@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 // import Link from "next/link";
-import TopHeader from "../component/TopHeader";
+import TopHeader from "../component/utils/TopHeader";
 import CartItem from "../component/cart/CartItem";
 import Drawer from "../component/Drawer";
 import CheckoutBtn from "../component/cart/CheckoutBtn";
@@ -14,12 +14,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import commerce from "../lib/commerce";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
-// function getServerSideProps() {
-//   return {
-//     props: {},
-//   };
-// }
+import { Loader } from "../component/utils/loader";
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,14 +25,11 @@ const Cart = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["cart"],
     queryFn: () => commerce.cart.retrieve(),
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
-  if (isLoading)
-    return (
-      <main className="CartPage min-h-screen  bg-mainBgColor pb-20">
-        Loading...
-      </main>
-    );
+  if (isLoading) return <Loader />;
 
   if (error)
     return (
@@ -91,6 +83,7 @@ const Cart = () => {
             />
           </>
         ) : null}
+
         {isOpen ?? (
           <div
             id="drawer-bottom-example"

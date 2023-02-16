@@ -1,7 +1,13 @@
-import type { LineItem } from "@chec/commerce.js/types/line-item";
+import type { Cart } from "@chec/commerce.js/features/cart";
 
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import commerce from "../../lib/commerce";
+import type { LineItem } from "@chec/commerce.js/types/line-item";
+import { useState } from "react";
+import { Loader } from "../utils/loader";
+import { useRouter } from "next/router";
 
 // components
 
@@ -11,10 +17,35 @@ type myProps = {
 };
 
 const CartItem = ({ editable, item }: myProps) => {
-  console.log(editable);
+  const { id, quantity } = item;
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const onAdd = async () => {
+    setLoading(true);
+    const result = await commerce.cart.update(id, { quantity: quantity + 1 });
+    console.log(result);
+    queryClient.setQueryData(["cart"], result);
+    setLoading(false);
+  };
+
+  const onSub = async () => {
+    setLoading(true);
+
+    const result = await commerce.cart.update(id, { quantity: quantity - 1 });
+    console.log(result);
+    queryClient.setQueryData(["cart"], result);
+    if (quantity - 1 == 0) {
+      router.push("/");
+    }
+    setLoading(false);
+  };
+
   return (
     <>
-      <div className="cartItem my-6 flex min-h-min items-start justify-between font-Lora">
+      <div className="cartItem relative my-6 flex min-h-min items-start justify-between font-Lora">
+        {loading && <Loader />}
         <div className="pubItemCart flex gap-4">
           <div className="pubIco flex items-start justify-center ">
             <p className="p-3">TK</p>
@@ -50,9 +81,13 @@ const CartItem = ({ editable, item }: myProps) => {
               className="buttonsAddSub flex h-6 min-h-fit items-center gap-3 border border-addSubBtnBorder py-3 px-2
           "
             >
-              <button className="add">+</button>
+              <button onClick={() => onAdd()} className="add">
+                +
+              </button>
               <p className="QuantityCounter">{item.quantity}</p>
-              <button className="sub">-</button>
+              <button onClick={() => onSub()} className="sub">
+                -
+              </button>
             </div>
           ) : null}
           <div className="pricebox">

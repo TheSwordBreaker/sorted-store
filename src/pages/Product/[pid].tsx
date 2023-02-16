@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 // importing Components
-import TopHeader from "../../component/TopHeader";
+import TopHeader from "../../component/utils/TopHeader";
 import ProductPageSlider from "../../component/product/ProductPageSlider";
 import ProductData from "../../component/product/ProductData";
 // import AboutPublication from "../../component/product/AboutPublication";

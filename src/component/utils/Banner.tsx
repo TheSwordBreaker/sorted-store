@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { banner } from "../../public/Images/images";
+import { banner } from "../../../public/Images/images";
 
 type props = {
   images: string[];

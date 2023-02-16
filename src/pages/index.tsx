@@ -3,13 +3,13 @@ import Head from "next/head";
 // importing style
 
 // components
-import Banner from "../component/Banner";
-import SearchBox from "../component/SearchBox";
-import TopHeader from "../component/TopHeader";
+import Banner from "../component/utils/Banner";
+import SearchBox from "../component/utils/SearchBox";
+import TopHeader from "../component/utils/TopHeader";
 import HeaderText from "../component/HeaderText";
 import CategoryNav from "../component/CategoryNav";
 import BooksCarousel from "../component/BooksCarousel";
-import BottomMenu from "../component/BottomMenu";
+import BottomMenu from "../component/utils/BottomMenu";
 import ProductList from "../component/ProductList";
 import GetBooks from "../component/GetBooks";
 import commerce from "../lib/commerce";

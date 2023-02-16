@@ -1,5 +1,5 @@
 import Image from "next/image.js";
-import { search } from "../../public/Images/images.js";
+import { search } from "../../../public/Images/images.js";
 
 const SearchBox = () => {
   return (
