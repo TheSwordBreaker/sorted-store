@@ -1,6 +1,147 @@
 import Head from "next/head";
+import { useEffect, useRef, useState } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import auth from "../lib/firebase";
+import type { Auth, PhoneAuthCredential } from "firebase/auth";
+import {
+  RecaptchaVerifier,
+  PhoneAuthProvider,
+  signInWithCredential,
+  signInWithPhoneNumber,
+} from "firebase/auth";
+import Otp from "../component/SignUp/Otp";
+import router from "next/router";
+interface IFormInput {
+  phone: string;
+}
 
-const MobileNo = () => {
+declare global {
+  interface Window {
+    recaptchaVerifier: any;
+    confirmationResult: any;
+  }
+}
+
+// window.recaptchaVerifier = window.recaptchaVerifier || {};
+// window.confirmationResult = window.confirmationResult || {};
+
+function onCaptcha() {
+  // console.log("oncapthca");
+  window.recaptchaVerifier = new RecaptchaVerifier(
+    "recaptcha-container",
+    {
+      size: "invisible",
+      callback: (response: any) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        console.log(response, "response");
+        //   onSignInSubmit();
+      },
+    },
+    auth
+  );
+
+  console.log("oncapthca");
+}
+
+const Login = () => {
+  const [code, setCode] = useState("");
+  const [verificationId, setVerificationId] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [showOtp, setShowOTP] = useState(false);
+  const [codeError, setCodeError] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormInput>();
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+    onSignInSubmit(data.phone);
+  };
+
+  const displayError = ({ phone }: any): string | boolean => {
+    if (!phone?.type) return false;
+
+    if (phone?.type == "required") return "Phone No is Required";
+    if (phone?.type === "minLength") return "Please 10 digit mobile number";
+    if (phone?.type === "pattern") return "Please Enter valid Input";
+
+    return false;
+  };
+
+  useEffect(() => {
+    onCaptcha();
+  }, []);
+
+  const onSignInSubmit = async (phone: string) => {
+    const appVerifier = window.recaptchaVerifier;
+    const phoneNumber = "+91" + phone;
+
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        setVerificationId(confirmationResult.verificationId);
+        setShowOTP(true);
+        setPhoneNo(phone);
+      })
+      .catch((error) => {
+        // Error; SMS not sent
+        // ...
+        // console.log(error, "errors");
+        console.log(error, "errors");
+        window.recaptchaVerifier.render().then(function (widgetId: any) {
+          // console.log("reseseting", widgetId);
+          appVerifier.reset(widgetId);
+        });
+      });
+  };
+  const resend = () => {
+    const appVerifier = window.recaptchaVerifier;
+    const phoneNumber = "+91" + phoneNo;
+
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        setVerificationId(confirmationResult.verificationId);
+      })
+      .catch((error) => {
+        // Error; SMS not sent
+        // ...
+        // console.log(error, "errors");
+        console.log(error, "errors");
+        window.recaptchaVerifier.render().then(function (widgetId: any) {
+          // console.log("reseseting", widgetId);
+          appVerifier.reset(widgetId);
+        });
+      });
+  };
+
+  const verify = async () => {
+    setCodeError("");
+    if (code.length < 6) return setCodeError("Please enter valid OTP");
+    const authCredential = PhoneAuthProvider.credential(verificationId, code);
+
+    try {
+      const userCredential = await signInWithCredential(auth, authCredential);
+      console.log("verify: ", userCredential);
+      if (userCredential) {
+        router.back();
+      }
+    } catch (e: any) {
+      console.log(e, "error");
+      console.log(e.code, "error");
+      if (e.code === "auth/code-expired") {
+        setCodeError("OTP Expired");
+      }
+    }
+  };
+
+  // firebase phone  invisible recaptcha in react
+
   return (
     <>
       <Head>
@@ -9,31 +150,82 @@ const MobileNo = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-full-cus bg-mainBgColor py-2 px-8 font-Lora text-fontColor">
-        <div className=" py-12 text-signUp">
-          <h1>Sign Up</h1>
-        </div>
-        <div>
-          <p className="py-2 text-pop-white100 ">Phone No.</p>
-          <input
-            className="w-full bg-transparent placeholder-gray-500 outline-0"
-            name="email"
-            type="email"
-            placeholder="Enter 10 digit mobile number"
-            required
-          />
-        </div>
-        <p className="py-8 text-consent text-pop-white100-61">
-          By continuing, you agree to our terms of service & privacy policy
-          content policy
-        </p>
-        <div className="py-20">
-          <button className="w-full  bg-white py-2 font-semibold text-black ">
-            Next
-          </button>
-        </div>
+        <div id="recaptcha-container"></div>
+        {showOtp ? (
+          <>
+            <div className="flex py-12 text-signUp">
+              <img
+                onClick={() => setShowOTP(false)}
+                src="/images/rightArrow.svg"
+                alt="arrow"
+                className="mr-4 w-6 rotate-180"
+              />{" "}
+              <h1>Verify OTP</h1>
+            </div>
+            <Otp mobile_no={phoneNo} onUpdate={setCode} />
+
+            <h2 className="py-6">
+              Don’t Get Resend in 01:25 <div onClick={resend}>Resend</div>{" "}
+            </h2>
+            <p className="py-4 text-sm text-[#CE2913]"> {codeError}</p>
+            <div className="py-20">
+              <button
+                id="sign-in-button"
+                onClick={verify}
+                className="w-full bg-addBgColor py-4 text-btnText"
+              >
+                Next
+              </button>
+            </div>
+          </>
+        ) : (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className=" py-12 text-signUp">
+              <h1>Sign Up</h1>
+            </div>
+            <div>
+              <p className="py-2 text-pop-white100 ">Phone No.</p>
+              <input
+                maxLength={10}
+                className="mt-4 w-full bg-transparent text-2xl tracking-[0.4rem] placeholder-gray-500 outline-0 placeholder:tracking-normal "
+                type="tel"
+                id="phone"
+                {...register("phone", {
+                  required: true,
+                  pattern: /^\d{10}$/,
+                  minLength: 10,
+                })}
+                placeholder="Enter 10 digit mobile number"
+              />
+
+              <p className="pt-4 text-sm text-[#CE2913]">
+                {errors && displayError(errors)}
+              </p>
+            </div>
+            <p className="py-8 text-consent text-pop-white100-61">
+              By continuing, you agree to our terms of service & privacy policy
+              content policy
+            </p>
+            <div className="py-20">
+              <button
+                id="sign-in-button"
+                onClick={() => {
+                  handleSubmit(onSubmit);
+                }}
+                type="submit"
+                className="w-full  bg-white py-2 font-semibold text-black "
+              >
+                Next
+              </button>
+
+              {/* <input type="submit" /> */}
+              {/* {JSON.stringify(errors, null, 2)} */}
+            </div>
+          </form>
+        )}
       </main>
     </>
   );
 };
 
-export default MobileNo;
+export default Login;

@@ -1,15 +1,23 @@
 import OtpInput from "react18-input-otp";
+import type { SetStateAction } from "react";
 import { useState } from "react";
+interface MyProps {
+  mobile_no: string | null;
+  onUpdate: (code: string) => void;
+}
 
-export default function Otp(props: any) {
+export default function Otp(props: MyProps) {
   const [code, setCode] = useState("");
 
-  const handleChange = (code) => setCode(code);
+  const handleChange = (code: string) => {
+    setCode(code);
+    props.onUpdate(code);
+  };
 
   return (
     <div className="App">
       <p>Enter the Otp sent to</p>
-      <p>{props.mobile_no}</p>
+      <p className="mb-4">{props.mobile_no}</p>
       <OtpInput
         value={code}
         onChange={handleChange}
@@ -28,11 +36,13 @@ export default function Otp(props: any) {
           caretColor: "#fff",
         }}
         focusStyle={{
-          border: "1px solid #CFD3DB",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "#CFD3DB",
+
           outline: "none",
         }}
       />
-      <h2 className="py-6">Don’t Get Resend in 01:25</h2>
     </div>
   );
 }

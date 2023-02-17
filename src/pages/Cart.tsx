@@ -19,12 +19,12 @@ import auth from "../lib/firebase";
 
 export async function getStaticProps() {
   return {
-    props: {}, // will be passed to the page component as props
+    props: {},
   };
 }
 
 const Cart = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
   // Queries
@@ -38,6 +38,7 @@ const Cart = () => {
   // Handlers
   const onCheckout = () => {
     console.log(auth.currentUser);
+    // auth.signOut();
     if (!auth.currentUser) router.push("/Login");
     console.log("Checkout click");
     // 1. get user

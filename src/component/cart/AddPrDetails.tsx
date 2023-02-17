@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { rightArrow } from "../../../public/Images/images";
+import auth from "../../lib/firebase";
 
 const AddPrDetails = () => {
   return (
@@ -32,7 +33,8 @@ const AddPrDetails = () => {
           </span>
         </p>
         <p className="mt-2 flex justify-between font-Lora text-xs text-secondaryTextCol">
-          Mark Sir , 4324324320
+          Mark Sir ,{" "}
+          {auth.currentUser ? auth.currentUser.phoneNumber : "4324324320"}
         </p>
       </div>
     </>
