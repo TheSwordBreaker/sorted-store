@@ -9,6 +9,9 @@
 font-family: 'Inter', sans-serif;
 font-family: 'Lora', serif; */
 
+a {
+  display: contents;
+}
 body {
   font-family: "Lora", serif;
 }

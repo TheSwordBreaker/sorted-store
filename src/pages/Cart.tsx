@@ -19,6 +19,7 @@ import auth from "../lib/firebase";
 import { useAtom } from "jotai";
 import { changePubAtom } from "../lib/bottomSheet";
 import ChangePublication from "../component/cart/ChangePublication";
+import EmptyCart from "../component/cart/EmptyCart";
 
 export async function getStaticProps() {
   return {
@@ -31,8 +32,6 @@ export async function getStaticProps() {
 // used atom to have a dialog handinglin have
 
 const Cart = () => {
-  const [isOpen, setIsOpen] = useState(true);
-
   const router = useRouter();
 
   // Queries
@@ -103,19 +102,7 @@ const Cart = () => {
             />
           </>
         ) : (
-          <div
-            role="status"
-            className="mx-auto flex h-full w-full flex-col   items-center justify-center bg-black"
-          >
-            <div className="mx-28  rounded-sm bg-[#191919] px-6  ">
-              <div className="relative  h-80 w-[70vw]">
-                <Image src="/images/empty.png" alt={"empty_cart."} fill />
-              </div>
-            </div>
-            <div className="mt-12 text-2xl tracking-wider text-white ">
-              Empty Cart{" "}
-            </div>
-          </div>
+          <EmptyCart />
         )}
         <ChangePublication />
       </main>
