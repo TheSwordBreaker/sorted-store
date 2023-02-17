@@ -3,29 +3,23 @@ import Head from "next/head";
 // import Link from "next/link";
 import TopHeader from "../component/utils/TopHeader";
 import CartItem from "../component/cart/CartItem";
-import Drawer from "../component/Drawer";
+
 import CheckoutBtn from "../component/cart/CheckoutBtn";
 import ItemTotal from "../component/cart/ItemTotal";
-import { useState } from "react";
-import { arrow } from "../../public/Images/images.js";
-import Image from "next/image";
+
 import ShowPersonlDetails from "../component/cart/ShowPersonalDetails";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import commerce from "../lib/commerce";
 import { useRouter } from "next/router";
-import Link from "next/link";
+
 import { Loader } from "../component/utils/loader";
 import auth from "../lib/firebase";
-import { useAtom } from "jotai";
-import { changePubAtom } from "../lib/bottomSheet";
+
 import ChangePublication from "../component/cart/ChangePublication";
 import EmptyCart from "../component/cart/EmptyCart";
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}
+import AddPersonalDetails from "../component/cart/AddPersonalDetails";
+import { openPersonalAtom } from "../lib/bottomSheet";
+import { useAtom } from "jotai";
 
 // my Plan
 // used atom to have change publication store - done
@@ -33,6 +27,8 @@ export async function getStaticProps() {
 
 const Cart = () => {
   const router = useRouter();
+
+  const [openPersonal, setOpenPersonal] = useAtom(openPersonalAtom);
 
   // Queries
   const { isLoading, error, data } = useQuery({
@@ -48,6 +44,10 @@ const Cart = () => {
     // auth.signOut();
     if (!auth.currentUser) router.push("/Login");
     console.log("Checkout click");
+
+    setOpenPersonal(true);
+    // take the personal data / check it in use Effect
+
     // 1. get user
     // if not send to signup page
     // 2. ask for address
@@ -105,6 +105,7 @@ const Cart = () => {
           <EmptyCart />
         )}
         <ChangePublication />
+        <AddPersonalDetails />
       </main>
     </>
   );
