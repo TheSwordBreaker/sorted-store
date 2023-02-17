@@ -8,6 +8,8 @@ import type { LineItem } from "@chec/commerce.js/types/line-item";
 import { useState } from "react";
 import { Loader } from "../utils/loader";
 import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { changePubAtom } from "../../lib/bottomSheet";
 
 // components
 
@@ -18,6 +20,7 @@ type myProps = {
 
 const CartItem = ({ editable, item }: myProps) => {
   const { id, quantity } = item;
+  const [changePub, setChangePub] = useAtom(changePubAtom);
   const queryClient = useQueryClient();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -42,6 +45,8 @@ const CartItem = ({ editable, item }: myProps) => {
     setLoading(false);
   };
 
+  const onChangePub = () => setChangePub(changePub ? null : item.id);
+
   return (
     <>
       <div className="cartItem relative my-6 flex min-h-min items-start justify-between font-Lora">
@@ -56,7 +61,10 @@ const CartItem = ({ editable, item }: myProps) => {
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="mt-1  flex justify-between text-left text-sm font-medium text-fontColor  focus:outline-none focus-visible:ring  focus-visible:ring-opacity-75">
+                    <Disclosure.Button
+                      onClick={onChangePub}
+                      className="mt-1  flex justify-between text-left text-sm font-medium text-fontColor  focus:outline-none focus-visible:ring  focus-visible:ring-opacity-75"
+                    >
                       <span>Nirali</span>
                       <ChevronUpIcon
                         className={`${
@@ -64,11 +72,6 @@ const CartItem = ({ editable, item }: myProps) => {
                         } ml-2 h-5 w-5  text-fontColor`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="w-full pt-4 pr-2 pb-2 text-justify text-sm text-gray-500">
-                      If you&apos;re unhappy with your purchase for any reason,
-                      email us within 90 days and we&apos;ll refund you in full,
-                      no questions asked.
-                    </Disclosure.Panel>
                   </>
                 )}
               </Disclosure>

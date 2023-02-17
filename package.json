@@ -21,6 +21,7 @@
     "firebase": "^9.17.1",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
+    "jotai": "^2.0.2",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",

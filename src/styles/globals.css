@@ -9,6 +9,10 @@
 font-family: 'Inter', sans-serif;
 font-family: 'Lora', serif; */
 
+body {
+  font-family: "Lora", serif;
+}
+
 .img-border {
   border: 0.860902px solid #ffffff;
 }

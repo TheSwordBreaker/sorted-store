@@ -1,6 +1,11 @@
+import { useAtom } from "jotai";
 import React from "react";
+import { openAddressAtom } from "../../lib/bottomSheet";
 
 const AddAddress = () => {
+  const [isAddressOpen, setIsAddressOpen] = useAtom(openAddressAtom);
+
+  if (!isAddressOpen) return null;
   return (
     <>
       <div className="absolute bottom-0 w-screen items-center  bg-mainBgColor px-8 pt-10 pb-6 font-Lora text-fontColor">
