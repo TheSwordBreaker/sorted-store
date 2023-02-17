@@ -44,7 +44,7 @@ const Cart = () => {
     // 1. get user
     // if not send to signup page
     // 2. ask for address
-    // show the add addresss propmt
+    // show the add detauls propmt
 
     // 3. redirect to payment
   };

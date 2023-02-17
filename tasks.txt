@@ -1,0 +1,35 @@
+- flow :  useState se render karana hai , hook forms
+steps : 
+    - login done
+        - sent to login page 
+        - obtain auth.currentUser 
+    - personal details 
+        - personal details model 
+    - address details 
+        - address details model 
+    - send to payment gateway with detials 
+    - show status (completed / unsuccess)
+
+----------------------------------------------------------------------------------------------
+pending
+- search result page 
+- explore page 
+- change Publication
+- product page extra info 
+- 60% flow pending to connect 
+- my orders page 
+- personal details and address 
+- bottom menu redirection 
+- loading time issue and redirection issue 
+
+
+completed 
+- ui design
+- auth complete
+- home page dynamic 
+- products integration and updation using custom api 
+
+
+ ------------------------------------------------------------------------------------------------------------- 
+ 
+note : address obj contains key form related  (pin , etc )
