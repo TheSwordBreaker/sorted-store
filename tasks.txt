@@ -1,6 +1,7 @@
 - flow :  useState se render karana hai , hook forms
-steps : 
-    - login done
+Steps : 
+    - varients 
+    - login :  done
         - sent to login page 
         - obtain auth.currentUser 
     - personal details 
@@ -11,16 +12,16 @@ steps :
     - show status (completed / unsuccess)
 
 ----------------------------------------------------------------------------------------------
-pending
-- search result page 
-- explore page 
-- change Publication
-- product page extra info 
-- 60% flow pending to connect 
-- my orders page 
-- personal details and address 
-- bottom menu redirection 
-- loading time issue and redirection issue 
+Pending
+    - search result page 
+    - explore page 
+    - change Publication
+    - product page extra info 
+    - 60% flow pending to connect 
+    - my orders page 
+    - personal details and address 
+    - bottom menu redirection 
+    - loading time issue and redirection issue 
 
 
 completed 
@@ -31,5 +32,5 @@ completed
 
 
  ------------------------------------------------------------------------------------------------------------- 
- 
+
 note : address obj contains key form related  (pin , etc )
