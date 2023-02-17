@@ -27,7 +27,7 @@ const config = {
         protocol: "https",
         hostname: "cdn.chec.io",
         port: "",
-        pathname: "/merchants/50415/**",
+        pathname: "/merchants/**",
       },
     ],
   },

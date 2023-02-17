@@ -23,7 +23,7 @@ const BookCard = ({ product }: my_props) => {
     );
   return (
     <Link href={`/Product/${encodeURIComponent(product?.permalink)}`}>
-      <div className="max-w-56 book-card-base mt-16 flex flex-col justify-center   bg-white md:mt-20 md:h-80 md:w-56">
+      <div className="max-w-56  mt-16 flex flex-col justify-center   bg-white ">
         <div className="mx-[1.15rem] -mt-10 sm:mx-6 ">
           <div className="img-cover relative aspect-[12/17] w-full ">
             <Image
@@ -39,8 +39,8 @@ const BookCard = ({ product }: my_props) => {
           </div>
         </div>
 
-        <div className="mx-4  mt-3.5 mb-3 flex flex-col font-bitter text-addBtn ">
-          <div className="  h-6 w-36 truncate  text-sm font-bold sm:text-base md:text-lg">
+        <div className="mx-3  mt-3.5 mb-3 flex flex-col font-bitter text-addBtn ">
+          <div className="  h-6 w-36  flex-1 text-[13px] font-bold sm:text-base md:text-lg">
             {" "}
             {product.name}
           </div>
