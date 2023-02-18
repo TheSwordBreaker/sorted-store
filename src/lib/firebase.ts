@@ -1,7 +1,6 @@
 import { initializeApp, getApp } from "Firebase/app";
 
-import { getAuth } from "firebase/auth";
-
+import { getAuth, updateProfile, updateEmail } from "firebase/auth";
 const FirebaseCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -17,3 +16,4 @@ const app = initializeApp(FirebaseCredentials);
 const auth = getAuth(app);
 
 export default auth;
+export { updateProfile, updateEmail };

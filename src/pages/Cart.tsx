@@ -13,22 +13,43 @@ import commerce from "../lib/commerce";
 import { useRouter } from "next/router";
 
 import { Loader } from "../component/utils/loader";
-import auth from "../lib/firebase";
+import auth, { updateEmail, updateProfile } from "../lib/firebase";
 
 import ChangePublication from "../component/cart/ChangePublication";
 import EmptyCart from "../component/cart/EmptyCart";
+import type { IPerson } from "../component/cart/AddPersonalDetails";
 import AddPersonalDetails from "../component/cart/AddPersonalDetails";
-import { openPersonalAtom } from "../lib/bottomSheet";
+import {
+  openAddressAtom,
+  openPersonalAtom,
+  personAtom,
+} from "../lib/bottomSheet";
 import { useAtom } from "jotai";
+import { useState } from "react";
+import { isFloat64Array } from "util/types";
+import type { IAddress } from "../component/cart/AddAddress";
+import AddAddress from "../component/cart/AddAddress";
 
 // my Plan
 // used atom to have change publication store - done
-// used atom to have a dialog handinglin have
+// used atom to have a dialog handinglin have - done
+// take the personal data / check it in use Effect
+
+// 1. get user
+// if not send to signup page
+// 2. ask for address
+// show the add detauls propmt
+
+// 3. redirect to payment
+const GlobalError = (e: any) => {
+  console.log("error", e);
+};
 
 const Cart = () => {
   const router = useRouter();
-
+  const [person, setPerson] = useAtom(personAtom);
   const [openPersonal, setOpenPersonal] = useAtom(openPersonalAtom);
+  const [openAddress, setOpenAddress] = useAtom(openAddressAtom);
 
   // Queries
   const { isLoading, error, data } = useQuery({
@@ -46,14 +67,36 @@ const Cart = () => {
     console.log("Checkout click");
 
     setOpenPersonal(true);
-    // take the personal data / check it in use Effect
+  };
+  const createCheckout = async () => {
+    if (!data?.id) return null;
+    const checkout = await commerce.checkout.generateTokenFrom("cart", data.id);
+  };
 
-    // 1. get user
-    // if not send to signup page
-    // 2. ask for address
-    // show the add detauls propmt
+  const onPersonalSubmit = async (x: IPerson) => {
+    setPerson(x);
+    if (auth.currentUser === null) return router.push("/Login");
+    setOpenPersonal(false);
 
-    // 3. redirect to payment
+    // updateEmail(auth.currentUser, x.email).catch(() => {
+    //   /* An error occurred */
+    // });
+
+    await updateProfile(auth.currentUser, {
+      displayName: x.fullName,
+      photoURL: "https://example.com/jane-q-user/profile.jpg",
+    }).catch(GlobalError);
+
+    console.log(" Profile updated successfully!");
+    setOpenAddress(true);
+
+    // update both firebase and commerr js
+  };
+
+  const onAddressSubmit = async (x: IAddress) => {
+    console.log("onAddressSubmit", x);
+    setOpenAddress(false);
+    // update both firebase and commerr js
   };
 
   if (isLoading) return <Loader />;
@@ -105,7 +148,8 @@ const Cart = () => {
           <EmptyCart />
         )}
         <ChangePublication />
-        <AddPersonalDetails />
+        <AddPersonalDetails onSubmit={onPersonalSubmit} />
+        <AddAddress onSubmit={onAddressSubmit} />
       </main>
     </>
   );

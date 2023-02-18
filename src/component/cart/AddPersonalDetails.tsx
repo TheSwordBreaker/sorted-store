@@ -8,36 +8,28 @@ import auth from "../../lib/firebase";
 const schema = yup
   .object({
     fullName: yup.string().required(),
-    phoneNumber: yup.string().max(10).min(10).required(),
+    phoneNumber: yup.string().required(),
     email: yup.string().email().required(),
   })
   .required();
-type FormData = yup.InferType<typeof schema>;
+export type IPerson = yup.InferType<typeof schema>;
 
-export interface IFormInput {
-  fullName: string;
-  email: string;
-  phoneNumber: string;
+interface myProps {
+  onSubmit: (x: IPerson) => void;
 }
 
-const AddPersonalDetails = () => {
-  console.log(auth.currentUser);
+const AddPersonalDetails = ({ onSubmit }: myProps) => {
   const [openPersonal, setOpenPersonal] = useAtom(openPersonalAtom);
 
-  const {
-    register,
-    handleSubmit,
+  const defaultValues = {
+    phoneNumber: auth?.currentUser?.phoneNumber ?? "",
+  };
 
-    formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      phoneNumber: auth.currentUser?.phoneNumber ?? "",
-    },
-    resolver: yupResolver(schema),
-  });
+  const MyForm = { defaultValues, resolver: yupResolver(schema) };
+  const { register, handleSubmit, formState } = useForm<IPerson>(MyForm);
+  const { errors } = formState;
 
   if (!openPersonal || !auth) return null;
-  const onSubmit = (data: FormData) => console.log(data);
 
   return (
     <>
@@ -47,19 +39,19 @@ const AddPersonalDetails = () => {
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="absolute bottom-0 w-screen items-center  bg-mainBgColor px-8 pt-10 pb-6 font-Lora text-fontColor"
+          className="absolute bottom-0 w-screen items-center  bg-mainBgColor px-8 pt-6 pb-6 font-Lora text-fontColor"
         >
-          <p className="py-4 text-signUp font-bold">Personal Details</p>
-          <div className="flex flex-col py-4">
+          <p className="pt-4 text-signUp font-bold">Personal Details</p>
+          <div className="flex flex-col pt-8">
             <label
               htmlFor="name"
-              className="py-2 font-semibold text-inputLabel"
+              className="pt-2 font-semibold text-inputLabel"
             >
               FULL NAME
             </label>
             <input
               {...register("fullName")}
-              className="bg-transparent font-bold placeholder-placeHolderDarkColor outline-0 placeholder:text-lg"
+              className="mt-2 bg-transparent text-lg font-bold text-inputText placeholder-placeHolderDarkColor outline-0 placeholder:text-lg"
               id="FName"
               type="text"
               aria-label="full-name"
@@ -69,7 +61,7 @@ const AddPersonalDetails = () => {
               {errors.fullName?.message}
             </p>
           </div>
-          <div className="flex flex-col py-4">
+          <div className="flex flex-col pt-4">
             <label
               htmlFor="email"
               className="py-2  font-semibold text-inputLabel"
@@ -78,7 +70,7 @@ const AddPersonalDetails = () => {
             </label>
             <input
               {...register("email")}
-              className="bg-transparent font-bold placeholder-placeHolderDarkColor outline-0"
+              className="mt-2 bg-transparent text-lg font-bold text-inputText placeholder-placeHolderDarkColor outline-0 "
               id="email"
               type="email"
               aria-label="email-address"

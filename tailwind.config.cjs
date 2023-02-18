@@ -29,6 +29,7 @@ module.exports = {
         btnPurple: "#AA3FFF",
         placeHolderDarkColor: '#161616',
         inputLabel: '#8A8A8A',
+        inputText: '#cdcdcd',
 
         placeHolderColor: "#282828",
         addSubBtnBorder: "#8a8a8a",
