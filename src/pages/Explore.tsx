@@ -17,6 +17,7 @@ import commerce from "../lib/commerce";
 import type { Product } from "@chec/commerce.js/types/product";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Filter from "../component/Filter";
 
 //todo
 // 1. take search from url params
@@ -66,10 +67,9 @@ const Explore: NextPage = () => {
         <SearchBox />
 
         <CategoryNav />
-        <CategoryNav />
-
+        <Filter />
         <BottomMenu />
-        <ProductList className="pb-20" title="" products={products} />
+        {/* <ProductList className="pb-20" title="" products={products} /> */}
         {/* <GetBooks></GetBooks> */}
       </main>
     </>
