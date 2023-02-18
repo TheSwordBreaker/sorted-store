@@ -17,7 +17,7 @@ const BooksCarousel = ({ products }: myProps) => {
 
   return (
     <>
-      <div className="mx-[-1rem] my-3 flex flex-col bg-bookCarouselBg text-fontColor">
+      <div className="my-3 mx-[-1rem] flex flex-col bg-bookCarouselBg text-fontColor">
         <Splide
           className="splide"
           tag="div"

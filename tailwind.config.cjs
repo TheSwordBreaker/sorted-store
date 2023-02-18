@@ -27,6 +27,9 @@ module.exports = {
         tC: "#D3EEBB",
         accorBg: "#0D0D0D",
         btnPurple: "#AA3FFF",
+        placeHolderDarkColor: '#161616',
+        inputLabel: '#8A8A8A',
+
         placeHolderColor: "#282828",
         addSubBtnBorder: "#8a8a8a",
         totalPriceText: "#d9d9d9",

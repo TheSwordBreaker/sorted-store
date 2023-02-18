@@ -119,7 +119,6 @@ const Login = () => {
         });
       });
   };
-
   const verify = async () => {
     setCodeError("");
     if (code.length < 6) return setCodeError("Please enter valid OTP");

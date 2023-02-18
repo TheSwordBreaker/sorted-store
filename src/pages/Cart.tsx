@@ -3,29 +3,32 @@ import Head from "next/head";
 // import Link from "next/link";
 import TopHeader from "../component/utils/TopHeader";
 import CartItem from "../component/cart/CartItem";
-import Drawer from "../component/Drawer";
+
 import CheckoutBtn from "../component/cart/CheckoutBtn";
 import ItemTotal from "../component/cart/ItemTotal";
-import { useState } from "react";
-import { arrow } from "../../public/Images/images.js";
-import Image from "next/image";
-import AddPrDetails from "../component/cart/AddPrDetails";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+import ShowPersonlDetails from "../component/cart/ShowPersonalDetails";
+import { useQuery } from "@tanstack/react-query";
 import commerce from "../lib/commerce";
 import { useRouter } from "next/router";
-import Link from "next/link";
+
 import { Loader } from "../component/utils/loader";
 import auth from "../lib/firebase";
 
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}
+import ChangePublication from "../component/cart/ChangePublication";
+import EmptyCart from "../component/cart/EmptyCart";
+import AddPersonalDetails from "../component/cart/AddPersonalDetails";
+import { openPersonalAtom } from "../lib/bottomSheet";
+import { useAtom } from "jotai";
+
+// my Plan
+// used atom to have change publication store - done
+// used atom to have a dialog handinglin have
 
 const Cart = () => {
-  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
+
+  const [openPersonal, setOpenPersonal] = useAtom(openPersonalAtom);
 
   // Queries
   const { isLoading, error, data } = useQuery({
@@ -41,6 +44,10 @@ const Cart = () => {
     // auth.signOut();
     if (!auth.currentUser) router.push("/Login");
     console.log("Checkout click");
+
+    setOpenPersonal(true);
+    // take the personal data / check it in use Effect
+
     // 1. get user
     // if not send to signup page
     // 2. ask for address
@@ -64,7 +71,8 @@ const Cart = () => {
         <div className="p-4">
           <TopHeader></TopHeader>
         </div>
-        {data ? (
+
+        {data && data.line_items.length ? (
           <>
             <div className="Cart  font-Lora text-fontColor">
               <h1 className="px-4 pb-3 font-bold">Cart</h1>
@@ -85,7 +93,7 @@ const Cart = () => {
               {/* <OnclickButton></OnclickButton> */}
             </div>
             <ItemTotal cart={data}></ItemTotal>
-            <AddPrDetails></AddPrDetails>
+            <ShowPersonlDetails />
 
             <CheckoutBtn
               onClick={() => {
@@ -93,71 +101,11 @@ const Cart = () => {
               }}
             />
           </>
-        ) : null}
-
-        {isOpen ?? (
-          <div
-            id="drawer-bottom-example"
-            className="fixed right-0 bottom-0 left-0 z-40 w-full transform-none overflow-y-auto  border border-solid bg-mainBgColor p-4 px-8 text-fontColor transition-transform"
-            aria-labelledby="drawer-bottom-label"
-          >
-            <div className="py-4">
-              <p className="text-signUp">Change Publication</p>
-              <p className="text-getBooksText2">
-                Broadband Communication System
-              </p>
-            </div>
-
-            <div>
-              <ul className="flex  items-center justify-between py-2 font-Lora">
-                <p className="p-3">TK</p>
-                <li className="">Nirali Publication</li>
-                <li>₹ 127.00</li>
-              </ul>
-              <ul className="flex  items-center justify-between py-2 font-Lora">
-                <p className="p-3">TK</p>
-                <li className="">Nirali Publication</li>
-                <li>₹ 127.00</li>
-              </ul>
-              <ul className="flex  items-center justify-between py-2 font-Lora">
-                <p className="p-3">TK</p>
-                <li className="">Nirali Publication</li>
-                <li>₹ 127.00</li>
-              </ul>
-              <ul className="flex  items-center justify-between py-2 font-Lora">
-                <p className="p-3">TK</p>
-                <li className="">Nirali Publication</li>
-                <li>₹ 127.00</li>
-              </ul>
-              <ul className="flex  items-center justify-between py-2 font-Lora">
-                <p className="p-3">TK</p>
-                <li className="">Nirali Publication</li>
-                <li>₹ 127.00</li>
-              </ul>
-            </div>
-
-            <button
-              onClick={() => {
-                setIsOpen(!isOpen);
-                console.log(isOpen);
-              }}
-              type="button"
-              data-drawer-hide="drawer-bottom-example"
-              aria-controls="drawer-bottom-example"
-              className="absolute top-2.5 right-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 "
-            ></button>
-
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                console.log(isOpen);
-              }}
-              className="inline-flex w-full  items-center justify-center bg-accorBg py-4 font-Lora  text-sm text-btnText font-medium focus:outline-none"
-            >
-              <Image className="rotate-180" src={arrow} alt=""></Image> back
-            </button>
-          </div>
+        ) : (
+          <EmptyCart />
         )}
+        <ChangePublication />
+        <AddPersonalDetails />
       </main>
     </>
   );

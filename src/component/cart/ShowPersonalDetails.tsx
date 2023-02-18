@@ -3,7 +3,7 @@ import Image from "next/image";
 import { rightArrow } from "../../../public/Images/images";
 import auth from "../../lib/firebase";
 
-const AddPrDetails = () => {
+const ShowPersonlDetails = () => {
   return (
     <>
       {/* add personal details page  */}
@@ -41,4 +41,4 @@ const AddPrDetails = () => {
   );
 };
 
-export default AddPrDetails;
+export default ShowPersonlDetails;
