@@ -20,15 +20,17 @@ import EmptyCart from "../component/cart/EmptyCart";
 import type { IPerson } from "../component/cart/AddPersonalDetails";
 import AddPersonalDetails from "../component/cart/AddPersonalDetails";
 import {
+  addressAtom,
   openAddressAtom,
   openPersonalAtom,
   personAtom,
 } from "../lib/bottomSheet";
 import { useAtom } from "jotai";
-import { useState } from "react";
-import { isFloat64Array } from "util/types";
+
 import type { IAddress } from "../component/cart/AddAddress";
 import AddAddress from "../component/cart/AddAddress";
+import { capturePayment, makePayment } from "../lib/razorpay";
+import { useState } from "react";
 
 // my Plan
 // used atom to have change publication store - done
@@ -48,8 +50,10 @@ const GlobalError = (e: any) => {
 const Cart = () => {
   const router = useRouter();
   const [person, setPerson] = useAtom(personAtom);
+  const [address, setAddress] = useAtom(addressAtom);
   const [openPersonal, setOpenPersonal] = useAtom(openPersonalAtom);
   const [openAddress, setOpenAddress] = useAtom(openAddressAtom);
+  const [loading, setLoading] = useState(false);
 
   // Queries
   const { isLoading, error, data } = useQuery({
@@ -59,6 +63,50 @@ const Cart = () => {
     refetchOnWindowFocus: false,
   });
 
+  const createCheckout = async () => {
+    if (!data?.id) return null;
+    const checkout: any = await commerce.checkout.generateTokenFrom(
+      "cart",
+      data.id
+    );
+    // const shipping = await commerce.checkout.getShippingOptions(checkout.id, {
+    //   country: "IN",
+    // });
+
+    checkout.fulfillment = {
+      shipping_method: "ship_NXELwj2Z7w3A4p",
+    };
+
+    checkout.shipping = {
+      name: person?.fullName,
+      street: address?.landmark + "   " + address?.fullAddres,
+      town_city: "Nashik",
+      county_state: "IN-MH",
+      postal_zip_code: address?.pinCode,
+      country: "IN",
+    };
+
+    checkout.customer = {
+      firstname: person?.fullName,
+      lastname: person?.fullName,
+      email: person?.email,
+      phone: person?.phoneNumber,
+      external_id: auth.currentUser?.uid,
+      meta: {
+        providerData: auth.currentUser?.providerData,
+        providerId: auth.currentUser?.providerId,
+      },
+    };
+    // console.log("shipping");
+    // console.log(shipping);
+
+    console.log("checkout");
+    console.log(checkout);
+
+    makePayment(checkout);
+    // capturePayment(checkout.id, checkout, {});
+  };
+
   // Handlers
   const onCheckout = () => {
     console.log(auth.currentUser);
@@ -66,17 +114,16 @@ const Cart = () => {
     if (!auth.currentUser) router.push("/Login");
     console.log("Checkout click");
 
-    setOpenPersonal(true);
-  };
-  const createCheckout = async () => {
-    if (!data?.id) return null;
-    const checkout = await commerce.checkout.generateTokenFrom("cart", data.id);
+    if (person === null) return setOpenPersonal(true);
+    if (address === null) return setOpenAddress(true);
+
+    createCheckout();
   };
 
   const onPersonalSubmit = async (x: IPerson) => {
-    setPerson(x);
     if (auth.currentUser === null) return router.push("/Login");
-    setOpenPersonal(false);
+    setLoading(true);
+    setPerson(x);
 
     // updateEmail(auth.currentUser, x.email).catch(() => {
     //   /* An error occurred */
@@ -88,18 +135,22 @@ const Cart = () => {
     }).catch(GlobalError);
 
     console.log(" Profile updated successfully!");
-    setOpenAddress(true);
+    setLoading(false);
+    setOpenPersonal(false);
 
-    // update both firebase and commerr js
+    // onCheckout();
   };
 
   const onAddressSubmit = async (x: IAddress) => {
+    setLoading(true);
     console.log("onAddressSubmit", x);
+    setAddress(x);
     setOpenAddress(false);
-    // update both firebase and commerr js
+    setLoading(false);
+    // onCheckout();
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading || loading) return <Loader />;
   if (error) return <HandleError />;
 
   return (

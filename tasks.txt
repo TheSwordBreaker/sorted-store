@@ -13,18 +13,26 @@ Steps :
 
 ----------------------------------------------------------------------------------------------
 Pending
-    - search result page 
+
     - explore page 
-    - change Publication
+    - COD Options
+    - change Publication 
+        Needs Meta data
     - product page extra info 
-    - 60% flow pending to connect 
+        Needs Meta data
+    - 90% flow pending to connect 
     - my orders page 
-    - personal details and address 
+        Only Details
     - bottom menu redirection 
+        Explore Page,
+        My Orders,
+        Remove Rewards,
     - loading time issue and redirection issue 
 
 
 completed 
+    - search result page 
+    - personal details and address 
 - ui design
 - auth complete
 - home page dynamic 
@@ -34,3 +42,27 @@ completed
  ------------------------------------------------------------------------------------------------------------- 
 
 note : address obj contains key form related  (pin , etc )
+
+success@razorpay
+failure@razorpay
+
+4111 1111 1111 1111
+
+
+{"status_code":422,"error":
+    {
+        "message": "The given data was invalid.","type":"unprocessable_entity","errors":
+        {
+            "customer.email":["The Email field is required when customer.id is not present."],
+            "shipping.name":["The Shipping contact name field is required when customer.id is not present."],
+            "shipping.street":["The Shipping street address field is required when customer.id is not present."],
+            "shipping.town_city":["The Shipping town\/city field is required when customer.id is not present."],
+            "shipping.country":["The shipping country field is required."],
+            "fulfillment.shipping_method":["The shipping method field is required."],
+            "payment.gateway":["The selected payment.gateway is invalid."],
+            "pay_what_you_want":["The \"Pay what you want\" price must be a number."]
+        }
+    }
+}
+
+
