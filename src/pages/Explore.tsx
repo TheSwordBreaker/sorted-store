@@ -1,23 +1,14 @@
-import type { GetServerSideProps } from "next";
-import { InferGetServerSidePropsType, type NextPage } from "next";
+import { type NextPage } from "next";
 import Head from "next/head";
 // importing style
 
 // components
-import Banner from "../component/utils/Banner";
 import SearchBox from "../component/utils/SearchBox";
 import TopHeader from "../component/utils/TopHeader";
-import HeaderText from "../component/HeaderText";
 import CategoryNav from "../component/CategoryNav";
-import BooksCarousel from "../component/BooksCarousel";
 import BottomMenu from "../component/utils/BottomMenu";
-import ProductList from "../component/ProductList";
-import GetBooks from "../component/GetBooks";
-import commerce from "../lib/commerce";
-import type { Product } from "@chec/commerce.js/types/product";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Filter from "../component/Filter";
+import ExploreList from "../component/Explore/ExploreList";
 
 //todo
 // 1. take search from url params
@@ -33,27 +24,6 @@ import Filter from "../component/Filter";
 // 11. avoid text overlay
 
 const Explore: NextPage = () => {
-  const router = useRouter();
-  const [products, setProducts] = useState<Product[]>([]);
-
-  const fetch = async () => {
-    const query: any = {};
-
-    const search = router.query?.search;
-
-    if (search) query["search"] = search;
-
-    console.log(search);
-
-    const results = await commerce.products.list(query);
-    console.log(results.data);
-    setProducts(results.data);
-  };
-
-  useEffect(() => {
-    fetch();
-  }, []);
-
   return (
     <>
       <Head>
@@ -69,7 +39,7 @@ const Explore: NextPage = () => {
         <CategoryNav />
         <Filter />
         <BottomMenu />
-        {/* <ProductList className="pb-20" title="" products={products} /> */}
+        <ExploreList />
         {/* <GetBooks></GetBooks> */}
       </main>
     </>
