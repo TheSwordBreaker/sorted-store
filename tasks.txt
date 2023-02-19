@@ -1,21 +1,24 @@
 - flow :  useState se render karana hai , hook forms
 Steps : 
-    - variants 
+    - variants : pending
     - login :  done
         - sent to login page 
         - obtain auth.currentUser 
-    - personal details 
+    - personal details -  done
         - personal details model 
-    - address details 
+    - address details  - done
         - address details model 
-    - send to payment gateway with details 
-    - show status (completed / unsuccess)
+    - send to payment gateway with details  -  done
+    - show status (completed / unsuccess) -  done
 
 ----------------------------------------------------------------------------------------------
 Pending
 
     - explore page 
-    - COD Options
+    - banner Images
+    - Product Images 
+    - COD Options 
+    - Show Payment id On Confim Page
     - change Publication 
         Needs Meta data
     - product page extra info 
@@ -28,6 +31,7 @@ Pending
         My Orders,
         Remove Rewards,
     - loading time issue and redirection issue 
+    - Slow Loading Time 
 
 
 completed 
