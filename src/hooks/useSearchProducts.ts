@@ -20,6 +20,8 @@ export default function useSearchProducts(options: mySearchArgs | undefined) {
     // if (publication) query.category_slug.push(publication);
   }
 
+  console.log("hi", options);
+
   console.log(query);
 
   return useQuery({
