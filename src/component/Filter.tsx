@@ -1,9 +1,9 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import useQueryState from "../hooks/useQueryState";
 
-const publication = [
+const publications = [
   { name: "Technical", value: "Technical" },
   { name: "Nirali", value: "Nirali" },
   { name: "Techknowledge", value: "techknowledge" },
@@ -19,19 +19,13 @@ const semester = [
 const Filter = () => {
   const { query, setQuery } = useQueryState();
 
-  const [selectedPublication, setSelectedPublication] = useState(
-    publication[0]
-  );
+  const [publication, setPublication] = useState(publications[0]);
   const [sem, setSem] = useState(semester[0]);
-
-  useEffect(() => {
-    setSearch(query?.sem ?? "");
-  }, [query.sem]);
 
   const handlePublication = (e: any) => {
     console.log(e);
     setQuery({ ...query, publication: e.value });
-    setSelectedPublication(e);
+    setPublication(e);
   };
   const handleSem = (e: any) => {
     console.log(e);
@@ -42,8 +36,8 @@ const Filter = () => {
   return (
     <div className=" z-50 flex w-40 gap-5 ">
       <DropDownSelect
-        data={selectedPublication!}
-        options={publication}
+        data={publication!}
+        options={publications}
         onChange={handlePublication}
       />
       <DropDownSelect data={sem!} options={semester} onChange={handleSem} />
