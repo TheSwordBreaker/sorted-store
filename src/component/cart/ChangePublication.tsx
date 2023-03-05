@@ -3,12 +3,14 @@ import React from "react";
 import { arrow } from "../../../public/Images/images";
 import { changePubAtom } from "../../lib/bottomSheet";
 import Image from "next/image";
+import BottomDialog from "../utils/BottomDialog";
 
 function ChangePublication() {
   const [changePub, setChangePub] = useAtom(changePubAtom);
 
   if (!changePub) return null;
   return (
+    // <BottomDialog isOpen={changePub} setOpen={setChangePub}>
     <div
       id="drawer-bottom-example"
       className="fixed right-0 bottom-0 left-0 z-40 w-full transform-none overflow-y-auto   bg-mainBgColor p-4 px-8 text-fontColor transition-transform"
@@ -66,6 +68,7 @@ function ChangePublication() {
         <Image className="rotate-180" src={arrow} alt="" /> back
       </button>
     </div>
+    // </BottomDialog>
   );
 }
 

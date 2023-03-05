@@ -10,110 +10,66 @@ declare global {
   }
 }
 
-export const initializeRazorpay = () => {
-  return new Promise((resolve) => {
-    if ((window as any).Razorpay) return resolve(true);
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+const postFetch = async (url: string, body: any) => {
+  const headers = { "Content-type": "application/json; charset=UTF-8" };
+  const opt = { method: "POST", body: JSON.stringify(body), headers };
+  return fetch(url, opt).then((t) => t.json());
+};
 
-    script.onload = () => {
-      resolve(true);
-    };
-    script.onerror = () => {
-      resolve(false);
-    };
+const getAmount = (id: any) => postFetch("/api/razorpay", { CheckoutId: id });
+const ondismiss = () => console.log("Payment form dismissed.");
 
-    document.body.appendChild(script);
-  });
+export const initializeRazorpay = async () => {
+  if ((window as any).Razorpay) return true;
+
+  const script = document.createElement("script");
+  script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  await document.body.appendChild(script);
+
+  return !!(window as any).Razorpay;
 };
 
 export const makePayment = async (orderDetails: any) => {
-  // console.log(orderDetails);
   const res = await initializeRazorpay();
+  const key = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
-  if (!res) {
-    alert("Razorpay SDK Failed to load");
-    return;
-  }
+  if (!res) return alert("Razorpay SDK Failed to load");
 
-  // Make API call to the serverless API
-  const data = await fetch("/api/razorpay", {
-    method: "POST",
-    body: JSON.stringify({
-      CheckoutId: orderDetails.id,
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  }).then((t) => t.json());
-  console.log(data);
+  const { id, customer } = orderDetails;
+  const { firstname, email, phone } = customer;
+
+  const data = await getAmount(id);
+
+  const { currency, amount, id: order_id } = data;
+  const prefill = { name: firstname, email, contact: phone };
+  const values = { key, currency, amount, order_id, prefill };
+
   const options = {
-    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+    ...values,
     name: "Sorted Pvt Ltd",
-    currency: data.currency,
-    amount: data.amount,
-    // order_id: data.id,
-    description: "Thankyou for your test donation",
-
-    prefill: {
-      name: orderDetails.customer.firstname,
-      email: orderDetails.customer.email,
-      contact: orderDetails.customer.phone,
-    },
-
-    modal: {
-      ondismiss() {
-        console.log("dismissed the payment form model ");
-        // Handle what happens when the customer dismisses the payment form without completing the payment. This may
-        // involve re-enabling a "pay now" button if you disable it when it's clicked.
-      },
-    },
-
-    handler: function (response: any) {
-      // Validate payment at server - using webhooks is a better idea.
-      console.log({
-        "response.razorpay_payment_id": response.razorpay_payment_id,
-      });
-      console.log({ "response.razorpay_order_id": response.razorpay_order_id });
-      console.log({
-        "response.razorpay_signature": response.razorpay_signature,
-      });
-
-      capturePayment(orderDetails.id, orderDetails, response);
-    },
+    description: "Thankyou for Purchase",
+    modal: { ondismiss },
+    handler: (response: any) => capturePayment(id, orderDetails, response),
   };
 
-  const paymentObject = new window.Razorpay(options);
-  paymentObject.open();
+  new window.Razorpay(options).open();
 };
 
-export const capturePayment = async (
-  checkoutTokenId: any,
-  orderDetails: any,
-  razorpayDetails: any
-) => {
-  console.log(razorpayDetails.razorpay_payment_id);
+export const capturePayment = async (token: any, order: any, razorpay: any) => {
+  try {
+    const { razorpay_payment_id: payment_id } = razorpay;
+    order.pay_what_you_want = order.total.raw;
 
-  return commerce.checkout
-    .capture(checkoutTokenId, {
-      ...orderDetails,
-      pay_what_you_want: orderDetails.total.raw,
-      payment: {
-        gateway: "razorpay",
-        razorpay: {
-          payment_id: razorpayDetails.razorpay_payment_id,
-        },
-      },
-    })
-    .then((order) => {
-      // Payment and order capture was successful, and the order detail is provide in the order variable.
-      console.log(order);
-      alert("Payment Done");
-    })
-    .catch((response) => {
-      // Capturing the order failed. The payment attempt should still be availabe in Razorpay as an auth, but not
-      // fully charged.
-      console.log(response);
-      alert(response.message);
-    });
+    const payment = { gateway: "razorpay", razorpay: { payment_id } };
+    const captureData = { ...order, payment };
+
+    const result = await commerce.checkout.capture(token, captureData);
+
+    console.log(result);
+    alert("Payment successful!");
+    window.location.href = window.location.origin;
+  } catch (error: any) {
+    console.error(error);
+    alert(error.message);
+  }
 };

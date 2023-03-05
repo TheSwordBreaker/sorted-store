@@ -4,7 +4,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { openAddressAtom } from "../../lib/bottomSheet";
-
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import BottomDialog from "../utils/BottomDialog";
 const schema = yup
   .object({
     fullAddres: yup.string().required(),
@@ -27,7 +29,7 @@ const AddAddress = ({ onSubmit }: myProps) => {
 
   if (!isAddressOpen) return null;
   return (
-    <>
+    <BottomDialog isOpen={isAddressOpen} setOpen={setIsAddressOpen}>
       <div className="absolute bottom-0 w-screen items-center  bg-mainBgColor px-8 pt-10 pb-6 font-Lora text-fontColor">
         <p className="py-4 text-signUp font-bold">Select Address</p>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,7 +99,7 @@ const AddAddress = ({ onSubmit }: myProps) => {
           </button>
         </form>
       </div>
-    </>
+    </BottomDialog>
   );
 };
 
