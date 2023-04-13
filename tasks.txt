@@ -17,7 +17,7 @@ Pending
     - explore page 
     - outide click should close the toggle
     - redicrt to home page with env
-    - banner Images
+    - banner Images  
     - Product Images 
     - COD Options 
     - Show Payment id On Confim Page
@@ -49,11 +49,14 @@ completed
 
 note : address obj contains key form related  (pin , etc )
 
-success@razorpay
-failure@razorpay
+--------------------------------------------------------------------------------------------------------------
+payment details : 
+    success@razorpay
+    failure@razorpay
 
-4111 1111 1111 1111
+    4111 1111 1111 1111
 
+--------------------------------------------------------------------------------------------------------------
 
 {"status_code":422,"error":
     {

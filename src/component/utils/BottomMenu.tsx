@@ -25,12 +25,12 @@ const BottomMenu = () => {
               <p>Explore</p>
             </li>
           </Link>
-          <Link href={`/`}>
+          {/* <Link href={`/`}>
             <li className=" flex  w-[3.75rem]  flex-col items-center justify-center py-4 px-4 text-fontColor">
               <Image className="navIcon mb-2" src={rewards} alt="rewards" />{" "}
               <p>rewards</p>
             </li>
-          </Link>
+          </Link> */}
           <Link href={`/Cart`}>
             <li className=" flex  w-[3.75rem]  flex-col items-center justify-center py-4 px-4 text-fontColor">
               <Image className="navIcon mb-2" src={cart} alt="Cart" />{" "}

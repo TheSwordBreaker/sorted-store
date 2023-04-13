@@ -40,6 +40,7 @@ const Home: NextPage<myProps> = ({ products }) => {
         <title>Sort-ed</title>
         <meta name="description" content="Sorted store front" />
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css"></script>
       </Head>
       <main className=" bg-mainBgColor p-4">
         <TopHeader />

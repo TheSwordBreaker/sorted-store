@@ -8,6 +8,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider } from "jotai";
 const queryClient = new QueryClient();
 
+// EXTERNAL CSS
+// https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css
+// EXTERNAL JAVASCRIPT
+//cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <QueryClientProvider client={queryClient}>

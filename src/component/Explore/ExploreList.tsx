@@ -20,8 +20,7 @@ function ExploreList() {
   const meta = data?.meta || {};
   return (
     <div>
-      {" "}
-      <div className=" bg-cauroselBg">
+      <div className=" bg-cauroselBg pb-16">
         <div className="mx-2 grid  grid-cols-2  gap-8  sm:grid-cols-3 lg:grid-cols-6">
           {products.map((p: Product, i: number) => {
             return <BookCard product={p} key={i} />;

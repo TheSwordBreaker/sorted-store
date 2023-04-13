@@ -22,6 +22,8 @@ import cart from "./cart.svg";
 import explore from "./explore.svg";
 import more from "./more.svg";
 import rewards from "./rewards.svg";
+import banner1 from "./PremiumB&S.jpeg";
+import banner2 from "./OneStopPlat.jpeg";
 export {
   logo,
   profile,
@@ -47,4 +49,6 @@ export {
   explore,
   more,
   rewards,
+  banner1,
+  banner2,
 };
