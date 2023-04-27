@@ -13,7 +13,13 @@ import commerce from "../lib/commerce";
 import { useRouter } from "next/router";
 
 import { Loader } from "../component/utils/loader";
-import auth, { updateEmail, updateProfile } from "../lib/firebase";
+import auth, {
+  getPersonal,
+  updateAddress,
+  updateEmail,
+  updatePersonal,
+  updateProfile,
+} from "../lib/firebase";
 
 import ChangePublication from "../component/cart/ChangePublication";
 import EmptyCart from "../component/cart/EmptyCart";
@@ -29,8 +35,13 @@ import { useAtom } from "jotai";
 
 import type { IAddress } from "../component/cart/AddAddress";
 import AddAddress from "../component/cart/AddAddress";
-import { capturePayment, makePayment } from "../lib/razorpay";
-import { useState } from "react";
+import {
+  capturePayment,
+  initializeRazorpay,
+  makePayment,
+} from "../lib/razorpay";
+import { useEffect, useState } from "react";
+import { GlobalError } from "../lib/handleError";
 
 // my Plan
 // used atom to have change publication store - done
@@ -43,9 +54,6 @@ import { useState } from "react";
 // show the add detauls propmt
 
 // 3. redirect to payment
-const GlobalError = (e: any) => {
-  console.log("error", e);
-};
 
 const Cart = () => {
   const router = useRouter();
@@ -63,8 +71,29 @@ const Cart = () => {
     refetchOnWindowFocus: false,
   });
 
+  const startUp = async () => {
+    if (!person && auth.currentUser) {
+      console.log("startUp runing....");
+      const data = await getPersonal();
+      if (data?.person) setPerson(data?.person);
+      if (data?.address) setAddress(data?.address);
+    }
+  };
+
+  useEffect(() => {
+    const close = auth.onAuthStateChanged((auth) => {
+      console.log(auth?.uid);
+      if (auth) startUp();
+    });
+    return () => {
+      close();
+    };
+  }, []);
+
   const createCheckout = async () => {
     if (!data?.id) return null;
+    initializeRazorpay();
+
     const checkout: any = await commerce.checkout.generateTokenFrom(
       "cart",
       data.id
@@ -114,7 +143,11 @@ const Cart = () => {
     if (!auth.currentUser) router.push("/Login");
     console.log("Checkout click");
 
+    console.log({ person });
+
     if (person === null) return setOpenPersonal(true);
+    console.log({ address });
+
     if (address === null) return setOpenAddress(true);
 
     createCheckout();
@@ -123,16 +156,9 @@ const Cart = () => {
   const onPersonalSubmit = async (x: IPerson) => {
     if (auth.currentUser === null) return router.push("/Login");
     setLoading(true);
+
+    await updatePersonal(x);
     setPerson(x);
-
-    // updateEmail(auth.currentUser, x.email).catch(() => {
-    //   /* An error occurred */
-    // });
-
-    await updateProfile(auth.currentUser, {
-      displayName: x.fullName,
-      photoURL: "https://example.com/jane-q-user/profile.jpg",
-    }).catch(GlobalError);
 
     console.log(" Profile updated successfully!");
     setLoading(false);
@@ -144,7 +170,9 @@ const Cart = () => {
   const onAddressSubmit = async (x: IAddress) => {
     setLoading(true);
     console.log("onAddressSubmit", x);
+    await updateAddress(x);
     setAddress(x);
+
     setOpenAddress(false);
     setLoading(false);
     // onCheckout();

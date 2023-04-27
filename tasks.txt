@@ -15,9 +15,9 @@ Steps :
 Pending
 
     - explore page 
-    - outide click should close the toggle
-    - redicrt to home page with env
-    - banner Images  
+    - [*] outide click should close the toggle
+    - [*] redicrt to home page with env
+    - [*] banner Images  
     - Product Images 
     - COD Options 
     - Show Payment id On Confim Page
